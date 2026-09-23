@@ -40,11 +40,17 @@
   function refresh() {
     const editing = isEditing();
     const standalone = navigator.standalone === true || matchMedia('(display-mode: standalone)').matches;
+    // In installed iOS apps both innerHeight and visualViewport can retain
+    // Safari's reduced height. The physical screen is the standalone viewport.
+    const ios = /iPhone|iPad|iPod/.test(navigator.userAgent || '') ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const fullHeight = standalone && ios && !editing && (window.visualViewport?.scale || 1) === 1
+      ? ((window.innerWidth > window.innerHeight) ? Math.min(screen.width,screen.height) : Math.max(screen.width,screen.height)) : 0;
     // The software keyboard must not be mistaken for a landscape device.
     const viewport = editing && lastViewport ? lastViewport : {
       width: Math.max(1, window.visualViewport?.width ?? window.innerWidth),
       height: standalone && !editing
-        ? Math.max(1, window.innerHeight, window.visualViewport?.height || 0)
+        ? Math.max(1, window.innerHeight, window.visualViewport?.height || 0, fullHeight || 0)
         : Math.max(1, window.visualViewport?.height ?? window.innerHeight),
       x: window.visualViewport?.offsetLeft || 0,
       y: window.visualViewport?.offsetTop || 0
@@ -58,6 +64,9 @@
     const top = parseFloat(safe.paddingTop) || 0, bottom = parseFloat(safe.paddingBottom) || 0;
     const availableWidth = Math.max(1, viewport.width - left - right);
     const availableHeight = Math.max(1, viewport.height - top - bottom);
+    // Paint the home-indicator area as part of the app; controls stay above it.
+    document.body.style.background = standalone && !wantsLandscape
+      ? 'linear-gradient(to bottom, #000 calc(100% - ' + bottom + 'px), #110504 0)' : '#000';
     rotation = 0;
     if (mobile && wrongAspect) {
       const angle = screen.orientation?.angle ?? window.orientation ?? 0;

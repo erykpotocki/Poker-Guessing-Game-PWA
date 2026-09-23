@@ -45,7 +45,7 @@
       #update-close { width: 100%; border: 1px solid #f2c15c; border-radius: 10px; padding: 12px; color: #fff8de; background: #9a6410; font-weight: bold; font-size: 15px; }
     </style>
   <script src="split-assets.js"></script>
-<script>window.PokerSplitAsset({"url":"Build/PWA.data.unityweb","hash":"a415282c1353e78a1710642533dcdf16b7ea3bce3f9166907c2a7b8a7ce77b12","length":156203438,"parts":["Build/PWA.data.unityweb.part00","Build/PWA.data.unityweb.part01","Build/PWA.data.unityweb.part02","Build/PWA.data.unityweb.part03","Build/PWA.data.unityweb.part04"]});</script>
+<script>window.PokerSplitAsset({"url":"Build/PWA.raw.data","hash":"363f790f7518a3278d9b9527397c4fe3972c8e0a414ebe9b7e32ee775504ac9d","length":183824050,"parts":["Build/PWA.raw.data.part00","Build/PWA.raw.data.part01","Build/PWA.raw.data.part02","Build/PWA.raw.data.part03","Build/PWA.raw.data.part04","Build/PWA.raw.data.part05","Build/PWA.raw.data.part06","Build/PWA.raw.data.part07","Build/PWA.raw.data.part08","Build/PWA.raw.data.part09","Build/PWA.raw.data.part10","Build/PWA.raw.data.part11","Build/PWA.raw.data.part12","Build/PWA.raw.data.part13","Build/PWA.raw.data.part14","Build/PWA.raw.data.part15","Build/PWA.raw.data.part16","Build/PWA.raw.data.part17","Build/PWA.raw.data.part18","Build/PWA.raw.data.part19","Build/PWA.raw.data.part20","Build/PWA.raw.data.part21"]});</script>
 </head>
   <body>
       <div id="unity-container">
@@ -89,7 +89,7 @@
         if (!loadingScreen.classList.contains('ready')) {
           loadingProgress.style.width = percent + '%';
           loadingTrack.setAttribute('aria-valuenow', String(percent));
-          loadingStatus.textContent = (realProgress < .9 ? 'POBIERANIE GRY… ' : runtimeReady ? 'PRZYGOTOWYWANIE… ' : 'URUCHAMIANIE… ') + percent + '%';
+          loadingStatus.textContent = (realProgress < .85 ? 'WCZYTYWANIE PLIKÓW… ' : runtimeReady ? 'PRZYGOTOWYWANIE MENU… ' : 'URUCHAMIANIE GRY… ') + percent + '%';
           if (runtimeReady && shownProgress >= 100) finishLoading();
           else requestAnimationFrame(renderProgress);
         }
@@ -100,7 +100,7 @@
         if (loadingScreen.classList.contains('hidden')) return;
         loadingProgress.style.width = '100%';
         loadingTrack.setAttribute('aria-valuenow', '100');
-        loadingStatus.textContent = 'URUCHAMIANIE MENU…';
+        loadingStatus.textContent = 'GOTOWE · 100%';
         window.PokerMobile?.finishBoot();
         loadingScreen.classList.add('hidden');
         window.setTimeout(() => { loadingScreen.style.display = 'none'; }, 400);
@@ -155,9 +155,9 @@
       const config = {
         // The service worker caches bounded files; avoid another archive copy in UnityCache.
         cacheControl: () => 'no-store',
-        dataUrl: buildUrl + '/PWA.data.unityweb?v=' + releaseVersion,
-        frameworkUrl: buildUrl + '/PWA.framework.js.unityweb?v=' + releaseVersion,
-        codeUrl: buildUrl + '/PWA.wasm.unityweb?v=' + releaseVersion,
+        dataUrl: buildUrl + '/PWA.raw.data?v=' + releaseVersion,
+        frameworkUrl: buildUrl + '/PWA.raw.framework.js?v=' + releaseVersion,
+        codeUrl: buildUrl + '/PWA.raw.wasm?v=' + releaseVersion,
         streamingAssetsUrl: 'StreamingAssets',
         companyName: 'DefaultCompany',
         productName: 'Poker zgadywany',
