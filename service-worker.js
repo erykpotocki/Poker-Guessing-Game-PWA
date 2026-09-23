@@ -36,17 +36,6 @@ self.addEventListener('fetch', event => {
     event.respondWith(fetch(event.request, { cache: 'no-store' }));
     return;
   }
-  const isLargeRuntimeAsset = url.pathname.includes('/Build/') || url.pathname.includes('/StreamingAssets/');
-  if (isLargeRuntimeAsset) {
-    event.respondWith(caches.open(CACHE_NAME).then(async cache => {
-      const cached = await cache.match(event.request);
-      if (cached) return cached;
-      const response = await fetch(event.request);
-      if (response.ok) cache.put(event.request, response.clone());
-      return response;
-    }).catch(() => caches.match(event.request)));
-    return;
-  }
   event.respondWith(fetch(event.request).then(response => {
     if (response.ok) caches.open(CACHE_NAME).then(cache => cache.put(event.request, response.clone()));
     return response;
