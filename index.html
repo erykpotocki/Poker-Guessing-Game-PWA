@@ -90,33 +90,20 @@
           loadingProgress.style.width = percent + '%';
           loadingTrack.setAttribute('aria-valuenow', String(percent));
           loadingStatus.textContent = (realProgress < .9 ? 'POBIERANIE GRY… ' : runtimeReady ? 'PRZYGOTOWYWANIE… ' : 'URUCHAMIANIE… ') + percent + '%';
-          if (runtimeReady && shownProgress >= 100) waitForContinue();
+          if (runtimeReady && shownProgress >= 100) finishLoading();
           else requestAnimationFrame(renderProgress);
         }
       }
       requestAnimationFrame(renderProgress);
 
-      function waitForContinue() {
+      function finishLoading() {
+        if (loadingScreen.classList.contains('hidden')) return;
         loadingProgress.style.width = '100%';
         loadingTrack.setAttribute('aria-valuenow', '100');
-        loadingStatus.textContent = 'DOTKNIJ, BY KONTYNUOWAĆ';
-        loadingScreen.classList.add('ready');
-        loadingScreen.setAttribute('role', 'button');
-        loadingScreen.setAttribute('tabindex', '0');
-
-        const continueToGame = event => {
-          if (event.type === 'keydown' && event.key !== 'Enter' && event.key !== ' ')
-            return;
-
-          event.preventDefault();
-          event.stopPropagation();
-          window.PokerMobile?.finishBoot();
-          loadingScreen.classList.add('hidden');
-          window.setTimeout(() => { loadingScreen.style.display = 'none'; }, 400);
-        };
-
-        loadingScreen.addEventListener('pointerup', continueToGame, { once: true });
-        loadingScreen.addEventListener('keydown', continueToGame);
+        loadingStatus.textContent = 'URUCHAMIANIE MENU…';
+        window.PokerMobile?.finishBoot();
+        loadingScreen.classList.add('hidden');
+        window.setTimeout(() => { loadingScreen.style.display = 'none'; }, 400);
       }
 
       function showRestartNotice(title, message, version) {
