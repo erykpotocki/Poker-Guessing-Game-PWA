@@ -2,7 +2,10 @@
    never replace the game with a rotate-phone blocker. */
 (() => {
   'use strict';
-  const mobile = matchMedia('(pointer: coarse)').matches;
+  // Some iOS PWA hosts report a fine pointer even on a touch-only phone.
+  // Fall back to the touch-point capability so their canvas is never cropped
+  // by the desktop 9:16 presentation constraint.
+  const mobile = matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
   const container = document.getElementById('unity-container');
   const canvas = document.getElementById('unity-canvas');
   if (!container || !canvas) return;
