@@ -39,10 +39,13 @@
 
   function refresh() {
     const editing = isEditing();
+    const standalone = navigator.standalone === true || matchMedia('(display-mode: standalone)').matches;
     // The software keyboard must not be mistaken for a landscape device.
     const viewport = editing && lastViewport ? lastViewport : {
       width: Math.max(1, window.visualViewport?.width ?? window.innerWidth),
-      height: Math.max(1, window.visualViewport?.height ?? window.innerHeight),
+      height: standalone && !editing
+        ? Math.max(1, window.innerHeight, window.visualViewport?.height || 0)
+        : Math.max(1, window.visualViewport?.height ?? window.innerHeight),
       x: window.visualViewport?.offsetLeft || 0,
       y: window.visualViewport?.offsetTop || 0
     };

@@ -140,12 +140,21 @@
         return true;
       }
 
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => navigator.serviceWorker.register(`service-worker.js?v=${releaseVersion}`));
-      }
+      const cacheReady = 'serviceWorker' in navigator ? (async () => {
+        await navigator.serviceWorker.register(`service-worker.js?v=${releaseVersion}`);
+        await navigator.serviceWorker.ready;
+        if (!navigator.serviceWorker.controller) await new Promise(resolve => {
+          const ready = () => { navigator.serviceWorker.removeEventListener('controllerchange', ready); resolve(); };
+          navigator.serviceWorker.addEventListener('controllerchange', ready);
+          if (navigator.serviceWorker.controller) ready();
+          setTimeout(ready, 5000);
+        });
+      })().catch(() => {}) : Promise.resolve();
 
       const buildUrl = 'Build';
       const config = {
+        // The service worker caches bounded files; avoid another archive copy in UnityCache.
+        cacheControl: () => 'no-store',
         dataUrl: buildUrl + '/PWA.data.unityweb?v=' + releaseVersion,
         frameworkUrl: buildUrl + '/PWA.framework.js.unityweb?v=' + releaseVersion,
         codeUrl: buildUrl + '/PWA.wasm.unityweb?v=' + releaseVersion,
@@ -172,7 +181,7 @@
         'Nie udało się wczytać aktualnej wersji gry. Sprawdź połączenie i uruchom aplikację ponownie.'
       );
 
-      checkForNewVersion().then(canStart => {
+      Promise.all([checkForNewVersion(), Promise.race([cacheReady, new Promise(resolve => setTimeout(resolve, 8000))])]).then(([canStart]) => {
         if (canStart) document.body.appendChild(script);
       });
     </script>

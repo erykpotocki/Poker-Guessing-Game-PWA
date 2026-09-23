@@ -2,7 +2,10 @@
    never replace the game with a rotate-phone blocker. */
 (() => {
   'use strict';
-  const mobile = matchMedia('(pointer: coarse)').matches;
+  // Some iOS PWA hosts report a fine pointer even on a touch-only phone.
+  // Fall back to the touch-point capability so their canvas is never cropped
+  // by the desktop 9:16 presentation constraint.
+  const mobile = matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
   const container = document.getElementById('unity-container');
   const canvas = document.getElementById('unity-canvas');
   if (!container || !canvas) return;
@@ -36,10 +39,13 @@
 
   function refresh() {
     const editing = isEditing();
+    const standalone = navigator.standalone === true || matchMedia('(display-mode: standalone)').matches;
     // The software keyboard must not be mistaken for a landscape device.
     const viewport = editing && lastViewport ? lastViewport : {
       width: Math.max(1, window.visualViewport?.width ?? window.innerWidth),
-      height: Math.max(1, window.visualViewport?.height ?? window.innerHeight),
+      height: standalone && !editing
+        ? Math.max(1, window.innerHeight, window.visualViewport?.height || 0)
+        : Math.max(1, window.visualViewport?.height ?? window.innerHeight),
       x: window.visualViewport?.offsetLeft || 0,
       y: window.visualViewport?.offsetTop || 0
     };
