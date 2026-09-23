@@ -21,25 +21,30 @@ self.addEventListener('install', event => {
 self.addEventListener('activate', event => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
-    const hadPreviousCache = keys.some(key => key.startsWith(CACHE_PREFIX) && key !== CACHE_NAME);
     await Promise.all(
       keys.filter(key => key.startsWith(CACHE_PREFIX) && key !== CACHE_NAME)
         .map(key => caches.delete(key))
     );
     await self.clients.claim();
-    if (!hadPreviousCache) return;
-    const windows = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
-    await Promise.all(windows.map(client => {
-      const freshUrl = new URL('./?pwa-updated=' + Date.now(), self.registration.scope);
-      return client.navigate(freshUrl.href);
-    }));
   })());
 });
 
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET' || new URL(event.request.url).origin !== self.location.origin) return;
-  if (new URL(event.request.url).pathname.endsWith('/release-notes.json')) {
+  const url = new URL(event.request.url);
+  if (url.pathname.endsWith('/release-notes.json')) {
     event.respondWith(fetch(event.request, { cache: 'no-store' }));
+    return;
+  }
+  const isLargeRuntimeAsset = url.pathname.includes('/Build/') || url.pathname.includes('/StreamingAssets/');
+  if (isLargeRuntimeAsset) {
+    event.respondWith(caches.open(CACHE_NAME).then(async cache => {
+      const cached = await cache.match(event.request);
+      if (cached) return cached;
+      const response = await fetch(event.request);
+      if (response.ok) cache.put(event.request, response.clone());
+      return response;
+    }).catch(() => caches.match(event.request)));
     return;
   }
   event.respondWith(fetch(event.request).then(response => {
