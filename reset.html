@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#020b06" />
+    <title>Naprawa Poker zgadywany</title>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; min-height: 100%; background: #020b06; color: #fff8de; font-family: Arial, sans-serif; }
+      body { min-height: 100dvh; display: grid; place-items: center; padding: max(20px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left)); }
+      main { width: min(100%, 390px); border: 1px solid #e6bd62; border-radius: 18px; padding: 26px 20px; background: linear-gradient(145deg, #0d4b2d, #062817); text-align: center; }
+      h1 { margin: 0 0 14px; color: #f2c15c; font-size: clamp(24px, 7vw, 31px); line-height: 1.15; }
+      p { margin: 0; font-size: 17px; line-height: 1.45; }
+      button { display: none; width: 100%; margin-top: 22px; border: 1px solid #f2c15c; border-radius: 10px; padding: 13px; color: #fff8de; background: #9a6410; font-size: 15px; font-weight: bold; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Naprawianie aplikacji…</h1>
+      <p id="status">Usuwam stare pliki i uruchamiam aktualną wersję gry.</p>
+      <button id="retry" type="button">SPRÓBUJ PONOWNIE</button>
+    </main>
+    <script>
+      async function resetApplication() {
+        const registrations = 'serviceWorker' in navigator
+          ? await navigator.serviceWorker.getRegistrations()
+          : [];
+        await Promise.all(registrations.map(registration => registration.unregister()));
+
+        if ('caches' in window) {
+          const keys = await caches.keys();
+          const cachePrefix = 'poker-zgadywany-' + new URL('./', location.href).href.replace(/[^a-z0-9]/gi, '_') + '-';
+          await Promise.all(keys.filter(key => key.startsWith(cachePrefix)).map(key => caches.delete(key)));
+        }
+
+        localStorage.removeItem('poker-zgadywany-last-release');
+        window.location.replace('./?recovered=' + Date.now());
+      }
+
+      const retry = document.querySelector('#retry');
+      retry.addEventListener('click', () => window.location.reload());
+      resetApplication().catch(() => {
+        document.querySelector('#status').textContent = 'Nie udało się automatycznie wyczyścić plików. Naciśnij przycisk i spróbuj ponownie.';
+        retry.style.display = 'block';
+      });
+    </script>
+  </body>
+</html>

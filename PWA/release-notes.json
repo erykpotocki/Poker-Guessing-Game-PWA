@@ -1,0 +1,10 @@
+{
+  "version": "1.3.0",
+  "title": "Dostępna aktualizacja",
+  "changes": [
+    "Dodano muzykę menu i rozgrywki oraz wspólne ustawienia dźwięku.",
+    "Nowe losowane avatary krupiera, poprawiony pasek gry i oznaczenia graczy.",
+    "Historia rund pokazuje właścicieli kart i pozostaje nad animacją rozdawania.",
+    "Poprawiono ruchy botów, gotowość do kolejnej rundy oraz listę graczy w pokoju."
+  ]
+}
