@@ -1,9 +1,9 @@
 {
-  "version": "1.3.1",
+  "version": "1.3.2",
   "title": "Dostępna aktualizacja",
   "changes": [
-    "Dolny pasek sięga do krawędzi ekranu w zainstalowanym PWA na iPhonie.",
-    "Nowe, czytelniejsze ikony sklepu, profilu, misji i ustawień.",
-    "Poprawiono układ paska bez zmiany bezpiecznego obszaru gry poziomej."
+    "Zmniejszono zużycie pamięci podczas otwierania ramek i rozpoczynania gry online.",
+    "Zoptymalizowano grafiki interfejsu i rewersów kart dla urządzeń mobilnych.",
+    "Dolny pasek z czytelnymi ikonami pozostaje przy dolnej krawędzi ekranu."
   ]
 }
