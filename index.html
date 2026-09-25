@@ -45,7 +45,7 @@
       #update-close { width: 100%; border: 1px solid #f2c15c; border-radius: 10px; padding: 12px; color: #fff8de; background: #9a6410; font-weight: bold; font-size: 15px; }
     </style>
   <script src="split-assets.js"></script>
-<script>window.PokerSplitAsset({"url":"Build/PWA.raw.data","hash":"82909ef627f7cc54559e7707b714e8b8ddc5cabc5aa9e1a5a9d008a6864d04b6","length":183824134,"parts":["Build/PWA.raw.data.part00","Build/PWA.raw.data.part01","Build/PWA.raw.data.part02","Build/PWA.raw.data.part03","Build/PWA.raw.data.part04","Build/PWA.raw.data.part05","Build/PWA.raw.data.part06","Build/PWA.raw.data.part07","Build/PWA.raw.data.part08","Build/PWA.raw.data.part09","Build/PWA.raw.data.part10","Build/PWA.raw.data.part11","Build/PWA.raw.data.part12","Build/PWA.raw.data.part13","Build/PWA.raw.data.part14","Build/PWA.raw.data.part15","Build/PWA.raw.data.part16","Build/PWA.raw.data.part17","Build/PWA.raw.data.part18","Build/PWA.raw.data.part19","Build/PWA.raw.data.part20","Build/PWA.raw.data.part21"]});</script>
+<script>window.PokerSplitAsset({"url":"Build/PWA.data","hash":"1b2b892f896fe4542973828db09cbf400443098f8766c7ff9e9c73ffce6e8298","length":183822128,"parts":["Build/PWA.data.part00","Build/PWA.data.part01","Build/PWA.data.part02","Build/PWA.data.part03","Build/PWA.data.part04","Build/PWA.data.part05","Build/PWA.data.part06","Build/PWA.data.part07","Build/PWA.data.part08","Build/PWA.data.part09","Build/PWA.data.part10","Build/PWA.data.part11","Build/PWA.data.part12","Build/PWA.data.part13","Build/PWA.data.part14","Build/PWA.data.part15","Build/PWA.data.part16","Build/PWA.data.part17","Build/PWA.data.part18","Build/PWA.data.part19","Build/PWA.data.part20","Build/PWA.data.part21"]});</script>
 </head>
   <body>
       <div id="unity-container">
@@ -79,7 +79,7 @@
       const updateTitle = document.querySelector('#update-title');
       const updateMessage = document.querySelector('#update-message');
       const updateClose = document.querySelector('#update-close');
-      const releaseVersion = '1.3.0';
+      const releaseVersion = '1.3.1';
       let realProgress = 0, shownProgress = 0, runtimeReady = false, previousFrame = performance.now();
       function renderProgress(now) {
         const dt = Math.min(.1, (now - previousFrame) / 1000); previousFrame = now;
@@ -155,13 +155,13 @@
       const config = {
         // The service worker caches bounded files; avoid another archive copy in UnityCache.
         cacheControl: () => 'no-store',
-        dataUrl: buildUrl + '/PWA.raw.data?v=' + releaseVersion,
-        frameworkUrl: buildUrl + '/PWA.raw.framework.js?v=' + releaseVersion,
-        codeUrl: buildUrl + '/PWA.raw.wasm?v=' + releaseVersion,
+        dataUrl: buildUrl + '/PWA.data?v=' + releaseVersion,
+        frameworkUrl: buildUrl + '/PWA.framework.js?v=' + releaseVersion,
+        codeUrl: buildUrl + '/PWA.wasm?v=' + releaseVersion,
         streamingAssetsUrl: 'StreamingAssets',
         companyName: 'DefaultCompany',
         productName: 'Poker zgadywany',
-        productVersion: '1.3.0',
+        productVersion: '1.3.1',
         devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2)
       };
       const script = document.createElement('script');

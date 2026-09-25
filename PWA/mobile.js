@@ -63,10 +63,13 @@
     const left = parseFloat(safe.paddingLeft) || 0, right = parseFloat(safe.paddingRight) || 0;
     const top = parseFloat(safe.paddingTop) || 0, bottom = parseFloat(safe.paddingBottom) || 0;
     const availableWidth = Math.max(1, viewport.width - left - right);
-    const availableHeight = Math.max(1, viewport.height - top - bottom);
-    // Paint the home-indicator area as part of the app; controls stay above it.
-    document.body.style.background = standalone && !wantsLandscape
-      ? 'linear-gradient(to bottom, #000 calc(100% - ' + bottom + 'px), #110504 0)' : '#000';
+    // Only the installed portrait menu needs the bottom inset in its canvas:
+    // the navigation background extends behind the home indicator. Landscape
+    // gameplay and the browser view retain their original safe bounds.
+    const dockNavigation = standalone && !wantsLandscape;
+    const availableHeight = Math.max(1, viewport.height - top - (dockNavigation ? 0 : bottom));
+    document.body.style.background = dockNavigation ? '#110504' : '#000';
+    window.PokerMobile.bottomInsetFraction = dockNavigation ? bottom / availableHeight : 0;
     rotation = 0;
     if (mobile && wrongAspect) {
       const angle = screen.orientation?.angle ?? window.orientation ?? 0;
@@ -159,6 +162,7 @@
       return next;
     },
     keyboardFraction: 0,
+    bottomInsetFraction: 0,
     setOrientation(landscape) {
       desired = landscape ? 'landscape' : 'portrait';
       refresh(); tryLock();
