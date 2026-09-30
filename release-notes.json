@@ -1,7 +1,11 @@
 {
-  "version": "1.3.3",
+  "version": "1.3.4",
   "title": "Dostępna aktualizacja",
   "changes": [
-    "Naprawiono widoczność dolnych przycisków na iPhonie — interfejs mieści się teraz w widocznym obszarze ekranu."
+    "Poprawiono dopasowanie gry do obszaru aplikacji na iPhonie.",
+    "Dolna nawigacja uwzględnia pasek gestów tylko raz, a lista sklepu kończy się nad przyciskami.",
+    "Poprawiono połysk nowych avatarów i usunięto nieczytelny napis z rogu.",
+    "Licznik koła pokazuje również bonusowe spiny z kalendarza, np. 13/3.",
+    "Ikony dolnego paska są spokojniejsze i czytelniejsze na telefonie."
   ]
 }

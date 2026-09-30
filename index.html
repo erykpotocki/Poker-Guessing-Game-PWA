@@ -17,8 +17,10 @@
     <style>
       *, *::before, *::after { box-sizing: border-box; }
       html, body { margin: 0; width: 100%; height: 100%; min-height: 100%; overflow: hidden; background: #000; color: #fff; font-family: Arial, sans-serif; overscroll-behavior: none; }
-      body { position: fixed; inset: 0; display: grid; place-items: center; }
-      #unity-container { --view-width: 100vw; --view-height: 100vh; position: absolute; left: 50%; top: 50%; margin: 0; width: 100%; height: 100%; transform: translate(-50%, -50%); transform-origin: center; overflow: hidden; background: #020b06; }
+      /* Keep the document in normal flow; fixing the document itself can leave
+         an iOS standalone status-bar-sized gap below otherwise fixed content. */
+      body { position: relative; min-height: 100dvh; }
+      #unity-container { --view-width: 100vw; --view-height: 100vh; position: fixed; left: 50%; top: 50%; margin: 0; width: 100%; height: 100%; transform: translate(-50%, -50%); transform-origin: center; overflow: hidden; background: #020b06; }
       #unity-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; background: #020b06; touch-action: none; }
       #loading-screen { position: absolute; inset: 0; z-index: 4; display: grid; place-items: center; padding: 20px 18px; background: linear-gradient(#0004, #0005), url('boot-background.png?v=6') center / cover no-repeat, #020b06; text-align: center; opacity: 1; transition: opacity .35s ease; }
       #loading-screen.hidden { opacity: 0; pointer-events: none; }
@@ -45,7 +47,7 @@
       #update-close { width: 100%; border: 1px solid #f2c15c; border-radius: 10px; padding: 12px; color: #fff8de; background: #9a6410; font-weight: bold; font-size: 15px; }
     </style>
   <script src="split-assets.js"></script>
-<script>window.PokerSplitAsset({"url":"Build/PWA.data","hash":"dde72645b6a5388704be6d1ff9f4e506c4d049307f1385fc7a478ad9b0293568","length":114054416,"parts":["Build/PWA.data.part00","Build/PWA.data.part01","Build/PWA.data.part02","Build/PWA.data.part03","Build/PWA.data.part04","Build/PWA.data.part05","Build/PWA.data.part06","Build/PWA.data.part07","Build/PWA.data.part08","Build/PWA.data.part09","Build/PWA.data.part10","Build/PWA.data.part11","Build/PWA.data.part12","Build/PWA.data.part13"]});</script>
+<script>window.PokerSplitAsset({"url":"Build/PWA.data","hash":"00103bc1eb2b079934d16ab95a874407aaac1374bbb1bd0da5ee3004a0ebac78","length":114052331,"parts":["Build/PWA.data.part00","Build/PWA.data.part01","Build/PWA.data.part02","Build/PWA.data.part03","Build/PWA.data.part04","Build/PWA.data.part05","Build/PWA.data.part06","Build/PWA.data.part07","Build/PWA.data.part08","Build/PWA.data.part09","Build/PWA.data.part10","Build/PWA.data.part11","Build/PWA.data.part12","Build/PWA.data.part13"]});</script>
 </head>
   <body>
       <div id="unity-container">
@@ -79,7 +81,7 @@
       const updateTitle = document.querySelector('#update-title');
       const updateMessage = document.querySelector('#update-message');
       const updateClose = document.querySelector('#update-close');
-      const releaseVersion = '1.3.3';
+      const releaseVersion = '1.3.4';
       let realProgress = 0, shownProgress = 0, runtimeReady = false, previousFrame = performance.now();
       function renderProgress(now) {
         const dt = Math.min(.1, (now - previousFrame) / 1000); previousFrame = now;
@@ -161,7 +163,7 @@
         streamingAssetsUrl: 'StreamingAssets',
         companyName: 'DefaultCompany',
         productName: 'Poker zgadywany',
-        productVersion: '1.3.2',
+        productVersion: '1.3.4',
         devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2)
       };
       const script = document.createElement('script');
@@ -187,4 +189,3 @@
     </script>
   </body>
 </html>
-

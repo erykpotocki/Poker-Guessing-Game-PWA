@@ -1,9 +1,11 @@
 {
-  "version": "1.3.2",
+  "version": "1.3.4",
   "title": "Dostępna aktualizacja",
   "changes": [
-    "Zmniejszono zużycie pamięci podczas otwierania ramek i rozpoczynania gry online.",
-    "Zoptymalizowano grafiki interfejsu i rewersów kart dla urządzeń mobilnych.",
-    "Dolny pasek z czytelnymi ikonami pozostaje przy dolnej krawędzi ekranu."
+    "Poprawiono dopasowanie gry do obszaru aplikacji na iPhonie.",
+    "Dolna nawigacja uwzględnia pasek gestów tylko raz, a lista sklepu kończy się nad przyciskami.",
+    "Poprawiono połysk nowych avatarów i usunięto nieczytelny napis z rogu.",
+    "Licznik koła pokazuje również bonusowe spiny z kalendarza, np. 13/3.",
+    "Ikony dolnego paska są spokojniejsze i czytelniejsze na telefonie."
   ]
 }

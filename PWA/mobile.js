@@ -28,6 +28,32 @@
   }
   const isEditing = () => /^(INPUT|TEXTAREA)$/.test(document.activeElement?.tagName || '');
 
+  function readViewport(standalone) {
+    // Measure the actual CSS surface. In an installed iOS PWA visualViewport
+    // can omit the status-bar height even though fixed content can draw there.
+    // screen.height is not a substitute: it also includes areas outside the app.
+    const bounds = safeProbe.getBoundingClientRect();
+    const layout = {
+      x: bounds.left, y: bounds.top,
+      width: Math.max(1, bounds.width || window.innerWidth),
+      height: Math.max(1, bounds.height || window.innerHeight)
+    };
+    const vv = window.visualViewport;
+    const viewport = standalone ? { ...layout } : {
+      x: vv?.offsetLeft || 0, y: vv?.offsetTop || 0,
+      width: Math.max(1, vv?.width ?? window.innerWidth),
+      height: Math.max(1, vv?.height ?? window.innerHeight)
+    };
+    const safe = getComputedStyle(safeProbe);
+    // Only reserve unsafe pixels that are actually INSIDE this viewport.
+    // Safari may already exclude a system bar from its visual viewport.
+    viewport.left = Math.max(0, layout.x + (parseFloat(safe.paddingLeft) || 0) - viewport.x);
+    viewport.right = Math.max(0, viewport.x + viewport.width - (layout.x + layout.width - (parseFloat(safe.paddingRight) || 0)));
+    viewport.top = Math.max(0, layout.y + (parseFloat(safe.paddingTop) || 0) - viewport.y);
+    viewport.bottom = Math.max(0, viewport.y + viewport.height - (layout.y + layout.height - (parseFloat(safe.paddingBottom) || 0)));
+    return viewport;
+  }
+
   // Unity uses this rect for render size AND input offset. CSS rotation alone
   // would swap the backing-buffer size and stretch the scene. Keep the physical
   // origin but expose logical dimensions. The bridge maps input to this origin.
@@ -40,33 +66,21 @@
   function refresh() {
     const editing = isEditing();
     const standalone = navigator.standalone === true || matchMedia('(display-mode: standalone)').matches;
-    // In installed iOS apps both innerHeight and visualViewport can retain
-    // Safari's reduced height. The physical screen is the standalone viewport.
-    const ios = /iPhone|iPad|iPod/.test(navigator.userAgent || '') ||
-      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    const fullHeight = standalone && ios && !editing && (window.visualViewport?.scale || 1) === 1
-      ? ((window.innerWidth > window.innerHeight) ? Math.min(screen.width,screen.height) : Math.max(screen.width,screen.height)) : 0;
-    // The software keyboard must not be mistaken for a landscape device.
-    const viewport = editing && lastViewport ? lastViewport : {
-      width: Math.max(1, window.visualViewport?.width ?? window.innerWidth),
-      height: standalone && !editing
-        ? Math.max(1, window.innerHeight, window.visualViewport?.height || 0, fullHeight || 0)
-        : Math.max(1, window.visualViewport?.height ?? window.innerHeight),
-      x: window.visualViewport?.offsetLeft || 0,
-      y: window.visualViewport?.offsetTop || 0
-    };
+    // Freeze the complete layout while typing, including its safe-area insets.
+    // The visual viewport still supplies keyboard occlusion below.
+    const viewport = editing && lastViewport ? lastViewport : readViewport(standalone);
     if (!editing) lastViewport = viewport;
     const wanted = bootVisible ? 'portrait' : desired;
     const wantsLandscape = wanted === 'landscape';
     const wrongAspect = (viewport.width > viewport.height) !== wantsLandscape;
-    const safe = getComputedStyle(safeProbe);
-    const left = parseFloat(safe.paddingLeft) || 0, right = parseFloat(safe.paddingRight) || 0;
-    const top = parseFloat(safe.paddingTop) || 0, bottom = parseFloat(safe.paddingBottom) || 0;
+    const { left, right, top, bottom } = viewport;
     const availableWidth = Math.max(1, viewport.width - left - right);
     // Only the installed portrait menu needs the bottom inset in its canvas:
     // the navigation background extends behind the home indicator. Landscape
     // gameplay and the browser view retain their original safe bounds.
-    const dockNavigation = standalone && !wantsLandscape;
+    // When a portrait menu is counter-rotated, the physical bottom is a logical
+    // side. Keep all four safe bounds then; do not lift its logical bottom too.
+    const dockNavigation = standalone && !wantsLandscape && !wrongAspect;
     const availableHeight = Math.max(1, viewport.height - top - (dockNavigation ? 0 : bottom));
     document.body.style.background = dockNavigation ? '#110504' : '#000';
     window.PokerMobile.bottomInsetFraction = dockNavigation ? bottom / availableHeight : 0;
