@@ -29,9 +29,13 @@
   const isEditing = () => /^(INPUT|TEXTAREA)$/.test(document.activeElement?.tagName || '');
 
   function readViewport(standalone) {
-    // Measure the actual CSS surface. In an installed iOS PWA visualViewport
-    // can omit the status-bar height even though fixed content can draw there.
-    // screen.height is not a substitute: it also includes areas outside the app.
+    // WebKit #254868: the installed app's fixed inset:0/client/visual viewport
+    // can be shorter by the status-bar height even with viewport-fit=cover.
+    // 100vh measures the full installed CSS surface. Use it only in standalone:
+    // browser tabs must still follow their visible (toolbar-reduced) viewport.
+    // Do not compensate with screen.height or append an estimated safe inset.
+    safeProbe.style.bottom = standalone ? 'auto' : '0px';
+    safeProbe.style.height = standalone ? '100vh' : 'auto';
     const bounds = safeProbe.getBoundingClientRect();
     const layout = {
       x: bounds.left, y: bounds.top,
