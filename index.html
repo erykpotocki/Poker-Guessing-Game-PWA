@@ -22,7 +22,7 @@
       body { position: relative; min-height: 100dvh; }
       #unity-container { --view-width: 100vw; --view-height: 100vh; position: fixed; left: 50%; top: 50%; margin: 0; width: 100%; height: 100%; transform: translate(-50%, -50%); transform-origin: center; overflow: hidden; background: #020b06; }
       #unity-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; background: #020b06; touch-action: none; }
-      #loading-screen { position: absolute; inset: 0; z-index: 4; display: grid; place-items: center; padding: 20px 18px; background: linear-gradient(#0004, #0005), url('boot-background.png?v=6') center / cover no-repeat, #020b06; text-align: center; opacity: 1; transition: opacity .35s ease; }
+      #loading-screen { position: absolute; inset: 0; z-index: 4; display: grid; place-items: center; padding: 20px 18px; background: linear-gradient(#0004, #0005), url('boot-background.jpg?v=7') center / cover no-repeat, #020b06; text-align: center; opacity: 1; transition: opacity .35s ease; }
       #loading-screen.hidden { opacity: 0; pointer-events: none; }
       #loading-screen.ready { cursor: pointer; }
       #loading-screen.ready #loading-logo,
@@ -47,7 +47,7 @@
       #update-close { width: 100%; border: 1px solid #f2c15c; border-radius: 10px; padding: 12px; color: #fff8de; background: #9a6410; font-weight: bold; font-size: 15px; }
     </style>
   <script src="split-assets.js"></script>
-<script>window.PokerSplitAsset({"url":"Build/PWA.data","hash":"00103bc1eb2b079934d16ab95a874407aaac1374bbb1bd0da5ee3004a0ebac78","length":114052331,"parts":["Build/PWA.data.part00","Build/PWA.data.part01","Build/PWA.data.part02","Build/PWA.data.part03","Build/PWA.data.part04","Build/PWA.data.part05","Build/PWA.data.part06","Build/PWA.data.part07","Build/PWA.data.part08","Build/PWA.data.part09","Build/PWA.data.part10","Build/PWA.data.part11","Build/PWA.data.part12","Build/PWA.data.part13"]});</script>
+<script>window.PokerSplitAsset({"url":"Build/PWA.data","hash":"17e5877bd997647c41f9550695b4d0bd79a42ba2f3595310491db5882537b982","length":98842836,"parts":["Build/PWA.data.part00","Build/PWA.data.part01","Build/PWA.data.part02","Build/PWA.data.part03","Build/PWA.data.part04","Build/PWA.data.part05","Build/PWA.data.part06","Build/PWA.data.part07","Build/PWA.data.part08","Build/PWA.data.part09","Build/PWA.data.part10","Build/PWA.data.part11"]});</script>
 </head>
   <body>
       <div id="unity-container">
@@ -81,7 +81,7 @@
       const updateTitle = document.querySelector('#update-title');
       const updateMessage = document.querySelector('#update-message');
       const updateClose = document.querySelector('#update-close');
-      const releaseVersion = '1.3.4';
+      const releaseVersion = '1.3.5';
       let realProgress = 0, shownProgress = 0, runtimeReady = false, previousFrame = performance.now();
       function renderProgress(now) {
         const dt = Math.min(.1, (now - previousFrame) / 1000); previousFrame = now;
@@ -121,13 +121,30 @@
       }
 
       async function checkForNewVersion() {
+        const controller = new AbortController();
+        let timeout;
         try {
-          const response = await fetch('release-notes.json', { cache: 'no-store' });
-          if (!response.ok) return true;
-          const release = await response.json();
+          // Update information is optional. A stalled request or response body
+          // must not hold the game at its loading screen indefinitely.
+          const release = await Promise.race([
+            (async () => {
+              const response = await fetch('release-notes.json', {
+                cache: 'no-store', signal: controller.signal
+              });
+              return response.ok ? await response.json() : null;
+            })(),
+            new Promise(resolve => {
+              timeout = setTimeout(() => {
+                controller.abort();
+                resolve(null);
+              }, 3000);
+            })
+          ]);
+          if (!release || typeof release.version !== 'string') return true;
           const storageKey = window.PokerReleaseStorageKey || 'poker-zgadywany-last-release';
-          const previousVersion = localStorage.getItem(storageKey);
-          if (previousVersion && previousVersion !== release.version) {
+          // Compare the files actually loaded, not the version remembered from
+          // the last visit. A current build can start without a cache reset.
+          if (releaseVersion !== release.version) {
             showRestartNotice(
               'Dostępna aktualizacja',
               'Aby wczytać nową wersję gry, uruchom aplikację ponownie.',
@@ -135,9 +152,11 @@
             );
             return false;
           }
-          if (!previousVersion) localStorage.setItem(storageKey, release.version);
+          localStorage.setItem(storageKey, release.version);
         } catch (_) {
           // Offline mode still works; update information is optional.
+        } finally {
+          clearTimeout(timeout);
         }
         return true;
       }
@@ -163,7 +182,7 @@
         streamingAssetsUrl: 'StreamingAssets',
         companyName: 'DefaultCompany',
         productName: 'Poker zgadywany',
-        productVersion: '1.3.4',
+        productVersion: '1.3.5',
         devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2)
       };
       const script = document.createElement('script');
