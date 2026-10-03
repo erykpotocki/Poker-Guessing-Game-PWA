@@ -1,18 +1,14 @@
 {
-  "version": "1.3.7",
+  "version": "1.3.8",
   "title": "Dostępna aktualizacja",
   "changes": [
-    "Nowy avatar błyszczy tylko do pierwszego obejrzenia; połysk nie wraca po zmianie zakładki.",
-    "Ustawienia podczas gry dostosowano do poziomego ekranu, z dostępem do wielkości przycisków.",
-    "Powiększono pola dotyku przycisków wyjścia, ustawień i dźwięku.",
-    "Przy pierwszym uruchomieniu czat jest dosunięty do lewego górnego rogu obszaru gry.",
-    "Ustawienia edycji i zwijania czatu przeniesiono poza okno wiadomości; czat nie zasłania listy układów.",
-    "Powiększono lupkę wyszukiwania układów.",
-    "Poprawiono dotykanie avatarów, otwieranie profili graczy i wybieranie emotek.",
-    "Powiększono karty podczas gry multiplayer.",
-    "Ikony misji i koła nagród pokazują kropkę, kiedy czeka nagroda lub dostępny spin.",
-    "Nagrody z misji są na górze, odebrane zadania przyciemniono i przeniesiono na dół. Rozdzielono misje dzienne i kariery.",
-    "Poprawiono sortowanie cen w sklepie oraz miejsce pod ostatnią misją.",
-    "Przywrócono odbiór misji startowych i poprawiono opis ukończonych zadań podczas sprawdzania czasu."
+    "Ustawienia w poziomie mają trzy sekcje obok siebie zamiast wysokiej pionowej karty.",
+    "Menu testowe ma własne miejsce i nie zasłania ustawień ani opcji czatu.",
+    "Poszerzono przyciski układów; suwak wielkości zmienia ich szerokość i wysokość.",
+    "Ujednolicono rozmiary przycisków oraz podniesiono Cofnij i Start nad dolną strefę telefonu.",
+    "Powiększono pola i avatary w tworzeniu pokoju oraz lobby. Długa lista graczy jest przewijana.",
+    "Tekst tury i czasu jest czytelniejszy; przekroczenie czasu ma osobny opis zamiast ujemnego licznika.",
+    "Ustawienia czatu korzystają z prostych przycisków i układu poziomego.",
+    "Zmniejszono pulsującą obręcz tury o 25%, dodatkowo dopasowując ją do braku ramki."
   ]
 }

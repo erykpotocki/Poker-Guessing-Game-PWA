@@ -52,7 +52,7 @@
       #update-close { width: 100%; border: 1px solid #f2c15c; border-radius: 10px; padding: 12px; color: #fff8de; background: #9a6410; font-weight: bold; font-size: 15px; }
     </style>
   <script src="split-assets.js"></script>
-<script>window.PokerSplitAsset({"url":"Build/PWA.data","hash":"991ca86ebdfd42b4dcca54d8f31230c471f6a10ce4ff9d90c8a6e034aacd58e9","length":98854255,"parts":["Build/PWA.data.part00","Build/PWA.data.part01","Build/PWA.data.part02","Build/PWA.data.part03","Build/PWA.data.part04","Build/PWA.data.part05","Build/PWA.data.part06","Build/PWA.data.part07","Build/PWA.data.part08","Build/PWA.data.part09","Build/PWA.data.part10","Build/PWA.data.part11"]});</script>
+<script>window.PokerSplitAsset({"url":"Build/PWA.data","hash":"49b1c3ff7501f21b862c601fdb740204c78201bf96240735629391e2e04d23e7","length":98858935,"parts":["Build/PWA.data.part00","Build/PWA.data.part01","Build/PWA.data.part02","Build/PWA.data.part03","Build/PWA.data.part04","Build/PWA.data.part05","Build/PWA.data.part06","Build/PWA.data.part07","Build/PWA.data.part08","Build/PWA.data.part09","Build/PWA.data.part10","Build/PWA.data.part11"]});</script>
 </head>
   <body>
       <div id="unity-container">
@@ -86,7 +86,7 @@
       const updateTitle = document.querySelector('#update-title');
       const updateMessage = document.querySelector('#update-message');
       const updateClose = document.querySelector('#update-close');
-      const releaseVersion = '1.3.7';
+      const releaseVersion = '1.3.8';
       let realProgress = 0, shownProgress = 0, runtimeReady = false, previousFrame = performance.now();
       function renderProgress(now) {
         const dt = Math.min(.1, (now - previousFrame) / 1000); previousFrame = now;
@@ -187,7 +187,7 @@
         streamingAssetsUrl: 'StreamingAssets',
         companyName: 'DefaultCompany',
         productName: 'Poker zgadywany',
-        productVersion: '1.3.7',
+        productVersion: '1.3.8',
         devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2)
       };
       const script = document.createElement('script');
