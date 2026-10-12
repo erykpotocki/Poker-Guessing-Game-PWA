@@ -1,9 +1,11 @@
 {
-  "version": "1.3.11",
+  "version": "1.3.12",
   "title": "Dostępna aktualizacja",
   "changes": [
-    "Ostatni rząd kolekcji jest w pełni dostępny nad dolnym paskiem nawigacji.",
-    "Kody promocyjne wymagają naciśnięcia ZAPISZ. Samo wpisanie kodu nie zmienia uprawnień do menu testowego.",
-    "Po pięciu błędnych zatwierdzeniach kodów działa blokada: 5 minut, 30 minut i coraz dłużej, maksymalnie dobę."
+    "Karty multiplayer mają ostre cyfry i symbole, bez powiększania rozpixelowanych grafik.",
+    "Odsłonięcie kart po Sprawdzam zachowuje czytelne odstępy i nie ściska własnej ręki.",
+    "Wyszukiwanie układów działa przed własną turą i zachowuje przygotowany filtr.",
+    "Z wyników wyszukiwania usunięto zbędny przycisk Wstecz.",
+    "Informacja o turze i aktywny timer są w jednym wyśrodkowanym wierszu o wspólnym rozmiarze tekstu. Komunikat Czas: pauza jest ukryty."
   ]
 }
