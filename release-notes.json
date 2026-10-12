@@ -1,10 +1,9 @@
 {
-  "version": "1.3.10",
+  "version": "1.3.11",
   "title": "Dostępna aktualizacja",
   "changes": [
-    "Informacja o turze i czasie jest zawsze w jednym wierszu, na wspólnej linii tekstu.",
-    "Zmniejszono domyślne przyciski układów i Sprawdzam. Na małych ekranach są jeszcze bardziej kompaktowe.",
-    "Pole pisania i ikona wysyłania zajmują mniej miejsca w czacie.",
-    "Podpowiedź wyszukiwania została uproszczona do Szukaj."
+    "Ostatni rząd kolekcji jest w pełni dostępny nad dolnym paskiem nawigacji.",
+    "Kody promocyjne wymagają naciśnięcia ZAPISZ. Samo wpisanie kodu nie zmienia uprawnień do menu testowego.",
+    "Po pięciu błędnych zatwierdzeniach kodów działa blokada: 5 minut, 30 minut i coraz dłużej, maksymalnie dobę."
   ]
 }
