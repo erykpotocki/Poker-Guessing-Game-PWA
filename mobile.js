@@ -16,6 +16,7 @@
   let desired = 'portrait', bootVisible = true;
   let logicalWidth = 1, logicalHeight = 1, rotation = 0;
   let lastViewport = null, pendingLock = null, lockedOrientation = null;
+  let lastDeviceOrientation = null;
   let settleFrame = 0, settleUntil = 0;
   function settleViewport() {
     settleUntil = performance.now() + 650;
@@ -70,10 +71,15 @@
   function refresh() {
     const editing = isEditing();
     const standalone = navigator.standalone === true || matchMedia('(display-mode: standalone)').matches;
+    // Keyboard height changes must not rotate the canvas. A real device
+    // rotation, however, must invalidate the frozen portrait geometry too.
+    const deviceOrientation = screen.orientation?.angle ?? window.orientation ?? 0;
+    const rotatedDevice = lastDeviceOrientation !== null && lastDeviceOrientation !== deviceOrientation;
+    lastDeviceOrientation = deviceOrientation;
     // Freeze the complete layout while typing, including its safe-area insets.
     // The visual viewport still supplies keyboard occlusion below.
-    const viewport = editing && lastViewport ? lastViewport : readViewport(standalone);
-    if (!editing) lastViewport = viewport;
+    const viewport = editing && lastViewport && !rotatedDevice ? lastViewport : readViewport(standalone);
+    if (!editing || rotatedDevice) lastViewport = viewport;
     const wanted = bootVisible ? 'portrait' : desired;
     const wantsLandscape = wanted === 'landscape';
     const wrongAspect = (viewport.width > viewport.height) !== wantsLandscape;
