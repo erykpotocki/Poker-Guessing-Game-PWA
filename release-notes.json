@@ -1,8 +1,13 @@
 {
-  "version": "1.3.13",
+  "version": "1.3.14",
   "title": "Dostępna aktualizacja",
   "changes": [
-    "Tła dolnych przycisków i podświetlenie wybranej zakładki dochodzą do dolnej krawędzi ekranu.",
-    "Ikony zachowują widoczność nad systemowym paskiem iPhone'a; dolny odstęp nie jest dodawany do tła przycisków."
+    "Po reklamie koło pokazuje gotowy spin zamiast poprzedniej nagrody.",
+    "Większe, spójne podglądy zakupionych i odblokowanych przedmiotów; usunięte nazwy modeli rewersów.",
+    "Misje dzienne są razem z karierą, a odebrane zadania kariery i specjalne są domyślnie zwinięte.",
+    "Czcionki przycisków zachowują rozmiar podczas przechodzenia między ekranami.",
+    "Hot seat: zaznaczanie nazw nowych graczy i przewijanie pól ponad klawiaturę.",
+    "Hot seat: poprzedni gracz i jego deklaracja są widoczni przy przekazywaniu telefonu, przed odkryciem karty.",
+    "Rewersy w kolekcji i podglądach poprawnie odtwarzają się po zmianie ekranu."
   ]
 }
