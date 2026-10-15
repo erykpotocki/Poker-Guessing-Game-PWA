@@ -1,13 +1,12 @@
 {
-  "version": "1.3.14",
+  "version": "1.3.15",
   "title": "Dostępna aktualizacja",
   "changes": [
-    "Po reklamie koło pokazuje gotowy spin zamiast poprzedniej nagrody.",
-    "Większe, spójne podglądy zakupionych i odblokowanych przedmiotów; usunięte nazwy modeli rewersów.",
-    "Misje dzienne są razem z karierą, a odebrane zadania kariery i specjalne są domyślnie zwinięte.",
-    "Czcionki przycisków zachowują rozmiar podczas przechodzenia między ekranami.",
-    "Hot seat: zaznaczanie nazw nowych graczy i przewijanie pól ponad klawiaturę.",
-    "Hot seat: poprzedni gracz i jego deklaracja są widoczni przy przekazywaniu telefonu, przed odkryciem karty.",
-    "Rewersy w kolekcji i podglądach poprawnie odtwarzają się po zmianie ekranu."
+    "Spójne czcionki i proporcje przycisków na ekranie wyboru trybu.",
+    "Większe avatary, węższe ciemne pola i zwarty układ tworzenia oraz dołączania do lobby.",
+    "Avatary przy nickach, dyskretne przyciski usuwania graczy i poprawione skalowanie listy lobby.",
+    "Tasowanie odbywa się przy krupierze także przy pierwszym uruchomieniu gry.",
+    "Chat przesuniesz przeciągnięciem. Dwuklik lub dwa stuknięcia otwierają pole wpisywania i wysyłanie.",
+    "Puste pole chatu chowa się po 8 sekundach bezczynności; szkic wiadomości pozostaje zachowany, a pole mieści się nad klawiaturą."
   ]
 }

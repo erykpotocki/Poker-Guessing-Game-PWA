@@ -120,6 +120,21 @@
     const vv = window.visualViewport, area = nativeCanvasBounds();
     window.PokerMobile.keyboardFraction = editing && !rotation && vv && area.height > 0
       ? Math.max(0, Math.min(1, (area.bottom - vv.offsetTop - vv.height) / area.height)) : 0;
+    window.PokerMobile.keyboardLeftFraction = 0;
+    window.PokerMobile.keyboardRightFraction = 1;
+    if (editing && rotation && vv && area.height > 0) {
+      // A keyboard at the physical bottom hides a logical side when the game
+      // is rotated. Report that visible interval without resizing the canvas.
+      const clamp = value => Math.max(0, Math.min(1, value));
+      const visibleTop = vv.offsetTop;
+      const visibleBottom = visibleTop + vv.height;
+      window.PokerMobile.keyboardLeftFraction = clamp(rotation === 90
+        ? (visibleTop - area.top) / area.height
+        : (area.bottom - visibleBottom) / area.height);
+      window.PokerMobile.keyboardRightFraction = clamp(rotation === 90
+        ? (visibleBottom - area.top) / area.height
+        : (area.bottom - visibleTop) / area.height);
+    }
   }
 
   function tryLock() {
@@ -186,6 +201,8 @@
       return next;
     },
     keyboardFraction: 0,
+    keyboardLeftFraction: 0,
+    keyboardRightFraction: 1,
     bottomInsetFraction: 0,
     setOrientation(landscape) {
       desired = landscape ? 'landscape' : 'portrait';
