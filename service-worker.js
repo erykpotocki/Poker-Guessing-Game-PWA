@@ -1,5 +1,5 @@
 const CACHE_PREFIX = 'poker-zgadywany-' + self.registration.scope.replace(/[^a-z0-9]/gi, '_') + '-';
-const CACHE_NAME = CACHE_PREFIX + '639275865005804174';
+const CACHE_NAME = CACHE_PREFIX + '639276696488627947';
 const SHELL = [
   './',
   './index.html',
