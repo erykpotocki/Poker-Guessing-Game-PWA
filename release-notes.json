@@ -1,12 +1,14 @@
 {
-  "version": "1.3.16",
+  "version": "1.3.17",
   "title": "Dostępna aktualizacja",
   "changes": [
-    "Misje dzienne mają własną pierwszą zakładkę, a zadania startowe są połączone z misjami kariery.",
-    "Przyciski menu zachowują swoje pozycje, a powroty i formularze mają spójne rozmiary i odstępy.",
-    "Nick zapisuje się już podczas wpisywania. Profil i formularze pokoju korzystają z tego samego avatara, losowanego raz na start.",
-    "Zakręć wszystkimi wykorzystuje dostępne spiny w szybkiej serii i pokazuje wspólne podsumowanie nagród.",
-    "Ponowny dwuklik chatu lub dwuklik nieaktywnego tła zamyka pisanie bez usuwania szkicu.",
-    "Startowe kosmetyki nie zwiększają postępu misji kolekcji. Pierwsza nagroda za spiny wymaga 5 losowań."
+    "Sklep rewersów ma zakładki Multiplayer i Jeden telefon oraz trzy ozdobne rewersy premium wspólne dla obu trybów. Ceny kosmetyków zostały ponownie zbalansowane.",
+    "Podgląd zakupu czytelnie pokazuje obie waluty, ma większy znak zamknięcia i zamyka się również po dotknięciu tła.",
+    "Misje dzienne łączą różne aktywności: grę, spiny i zdobywanie waluty. Gotowe nagrody oraz wcześniejszy postęp są zachowane.",
+    "Zakręć wszystkimi pokazuje pełną animację i nagrodę każdego spina, po czym automatycznie przechodzi do następnego.",
+    "Chat zajmuje lewy górny obszar, tura i czas są przesunięte w prawo, a stół z avatarami jest nieco niżej. Dodano podpowiedzi układów i gotowe wiadomości obok emotek.",
+    "Ujednolicono przyciski Podbij, Sprawdzam i Gotowy. Nowe domyślne ustawienia to skala interfejsu 80% i szerokość układów 160%; własne ustawienia pozostają zachowane.",
+    "Poprawiono podpowiedź Szukaj…, rozmiar panelu ustawień oraz obsługę orientacji przy otwieraniu klawiatury w PWA.",
+    "Dźwięk jest zatrzymywany po ukryciu gry, blokadzie ekranu i opuszczeniu strony; gra czyści również informacje odtwarzacza systemowego."
   ]
 }

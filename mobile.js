@@ -17,9 +17,10 @@
   let logicalWidth = 1, logicalHeight = 1, rotation = 0;
   let lastViewport = null, pendingLock = null, lockedOrientation = null;
   let lastDeviceOrientation = null;
-  let settleFrame = 0, settleUntil = 0;
-  function settleViewport() {
+  let settleFrame = 0, settleUntil = 0, orientationSettleUntil = 0;
+  function settleViewport(nativeRotation = false) {
     settleUntil = performance.now() + 650;
+    if (nativeRotation) orientationSettleUntil = settleUntil;
     if (settleFrame) return;
     function step() {
       refresh();
@@ -78,8 +79,12 @@
     lastDeviceOrientation = deviceOrientation;
     // Freeze the complete layout while typing, including its safe-area insets.
     // The visual viewport still supplies keyboard occlusion below.
-    const viewport = editing && lastViewport && !rotatedDevice ? lastViewport : readViewport(standalone);
-    if (!editing || rotatedDevice) lastViewport = viewport;
+    // An iPhone may report its new angle before 100vh/safe-area dimensions
+    // finish updating. Keep measuring that installed surface during a real
+    // rotation; ordinary keyboard resize must still preserve the frozen layout.
+    const settlingOrientation = standalone && performance.now() < orientationSettleUntil;
+    const viewport = editing && lastViewport && !rotatedDevice && !settlingOrientation ? lastViewport : readViewport(standalone);
+    if (!editing || rotatedDevice || settlingOrientation) lastViewport = viewport;
     const wanted = bootVisible ? 'portrait' : desired;
     const wantsLandscape = wanted === 'landscape';
     const wrongAspect = (viewport.width > viewport.height) !== wantsLandscape;
@@ -138,17 +143,22 @@
   }
 
   function tryLock() {
-    if (!mobile || isEditing() || typeof screen.orientation?.lock !== 'function') return;
+    if (!mobile || typeof screen.orientation?.lock !== 'function' || document.hidden) return;
     const target = bootVisible ? 'portrait' : desired;
-    if (pendingLock || lockedOrientation === target) return;
+    const reported = screen.orientation.type;
+    // WebKit may drop a successful lock when focusing the native keyboard or
+    // resuming the installed app. A cached success cannot override OS state.
+    const matches = !reported || reported.startsWith(target);
+    if (pendingLock?.target === target || (lockedOrientation === target && matches)) return;
     // No forced fullscreen or permission dialog. The fallback is already active.
     const request = { target };
     pendingLock = request;
     try {
       Promise.resolve(screen.orientation.lock(target)).then(() => {
-        lockedOrientation = target;
-      }, () => { lockedOrientation = null; }).finally(() => {
-        if (pendingLock === request) pendingLock = null;
+        if (pendingLock === request) lockedOrientation = target;
+      }, () => { if (pendingLock === request) lockedOrientation = null; }).finally(() => {
+        if (pendingLock !== request) return;
+        pendingLock = null;
         refresh();
         if (target !== (bootVisible ? 'portrait' : desired)) tryLock();
       });
@@ -213,16 +223,23 @@
     refresh
   };
   function resume() { lockedOrientation = null; refresh(); tryLock(); }
-  ['resize', 'orientationchange'].forEach(name => window.addEventListener(name, () => { refresh(); settleViewport(); tryLock(); }));
+  function orientationChanged() { lockedOrientation = null; settleViewport(true); refresh(); tryLock(); }
+  window.addEventListener('resize', () => { refresh(); settleViewport(); tryLock(); });
+  window.addEventListener('orientationchange', orientationChanged);
   ['pageshow', 'focus'].forEach(name => window.addEventListener(name, resume));
   document.addEventListener('visibilitychange', () => { if (!document.hidden) resume(); });
   document.addEventListener('pointerup', tryLock);
   document.addEventListener('touchend', tryLock, { passive: true });
-  document.addEventListener('focusin', refresh);
+  // Run before Unity handles the chat double tap/search button and before
+  // WebKit displays its keyboard. Cover touch browsers without Pointer Events.
+  document.addEventListener('pointerdown', tryLock, { capture: true, passive: true });
+  document.addEventListener('touchstart', tryLock, { capture: true, passive: true });
+  document.addEventListener('focusin', () => { refresh(); tryLock(); }, true);
   document.addEventListener('focusout', () => requestAnimationFrame(() => { refresh(); tryLock(); }));
   window.visualViewport?.addEventListener('resize', refresh);
   window.visualViewport?.addEventListener('scroll', refresh);
-  screen.orientation?.addEventListener('change', () => { refresh(); settleViewport(); });
+  screen.orientation?.addEventListener('change', orientationChanged);
+  document.addEventListener('fullscreenchange', resume);
   refresh(); tryLock();
   // Initial HTML loading keeps its portrait image. Random artwork is used only
   // by Unity's multiplayer loading screen after START.
