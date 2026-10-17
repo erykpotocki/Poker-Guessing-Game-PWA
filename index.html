@@ -51,8 +51,11 @@
       #update-message { margin: 0 0 22px; font-size: clamp(16px, calc(var(--view-width) * .045), 19px); font-weight: bold; line-height: 1.4; }
       #update-close { width: 100%; border: 1px solid #f2c15c; border-radius: 10px; padding: 12px; color: #fff8de; background: #9a6410; font-weight: bold; font-size: 15px; }
     </style>
-  <script src="split-assets.js"></script>
-<script>window.PokerSplitAsset({"url":"Build/PWA.data","hash":"615afe3148156bbb75acb5dfcbedeb65a8fa18d30479745cadaee21879605bf2","length":98893975,"parts":["Build/PWA.data.part00","Build/PWA.data.part01","Build/PWA.data.part02","Build/PWA.data.part03","Build/PWA.data.part04","Build/PWA.data.part05","Build/PWA.data.part06","Build/PWA.data.part07","Build/PWA.data.part08","Build/PWA.data.part09","Build/PWA.data.part10","Build/PWA.data.part11"]});</script>
+  <!-- Poker transport assets:start -->
+<script src="split-assets.js"></script>
+<script>window.PokerSplitAsset({"url":"Build/PWA.data","hash":"da810e828b01ec465fcc4f3f055dbc39d349b3f199040c8d6d7ef341bdfaa484","length":100445774,"parts":["Build/PWA.data.part00","Build/PWA.data.part01","Build/PWA.data.part02","Build/PWA.data.part03","Build/PWA.data.part04","Build/PWA.data.part05","Build/PWA.data.part06","Build/PWA.data.part07","Build/PWA.data.part08","Build/PWA.data.part09","Build/PWA.data.part10","Build/PWA.data.part11"],"contentType":"application/octet-stream","compressedParts":["Build/PWA.data.part00.gzbin","Build/PWA.data.part01.gzbin","Build/PWA.data.part02.gzbin","Build/PWA.data.part03.gzbin","Build/PWA.data.part04.gzbin","Build/PWA.data.part05.gzbin","Build/PWA.data.part06.gzbin","Build/PWA.data.part07.gzbin","Build/PWA.data.part08.gzbin","Build/PWA.data.part09.gzbin","Build/PWA.data.part10.gzbin","Build/PWA.data.part11.gzbin"],"partSizes":[8388608,8388608,8388608,8388608,8388608,8388608,8388608,8388608,8388608,8388608,8388608,8171086],"compressedSizes":[7567006,7711036,7707489,7711780,7587320,7613520,8389719,8291147,8377438,8306882,7543936,2239645],"partHashes":["2c0a5ae5e8c14ac55bdf0f1c2aaef861958b409f3dbda953986b000d3324bd91","3ac143207d8ff1f0cf1664f11b43010117ff8a4ede9d1ee6051f34bcc9b315ce","5224280e5c58935f2c75197c745542f09cafb096946488f2162f1d523e699994","e611d8f735aaa87d85c07762db43b003aa898d6d5100951e559989f20d491795","3e79f970ee46a72bcfe40dd0adb033376bcc0b38e0d13f20d0839077505f706f","b87fd3ec996f5d93e7edf393a62fa39166339271806487f97ae704b9318fa152","a75d313c9bed3b013289c877e8a63a09e0168630f03500a2abb62d4b61979e9f","e283e77891ba8d9a28b7b9a5c534312c95a3b1412fc41eeacfe458eee411d872","55048681c038939efc87fbb2fb954ca02798e1e2ab38f18a6940da3e7c3f00b7","766fc19625920886d181acbf008e9e0b96e2ecc48a785868b39c66f448e67955","bc6e4853cb12d3828b82980cc925dbda746ed76a496ca2292ef653fb5e7867f4","01d7870fabc743e4e72614e8acb5622bc7ef28fb810e4fc8c405dd9b67346c87"]});</script>
+<script>window.PokerSplitAsset({"url":"Build/PWA.wasm","hash":"00f7aebf85057da2159cd8088a11616080b9a43bcace440a627fd2362dc475f0","length":46343766,"parts":["Build/PWA.wasm.part00","Build/PWA.wasm.part01","Build/PWA.wasm.part02","Build/PWA.wasm.part03","Build/PWA.wasm.part04","Build/PWA.wasm.part05"],"contentType":"application/wasm","compressedParts":["Build/PWA.wasm.part00.gzbin","Build/PWA.wasm.part01.gzbin","Build/PWA.wasm.part02.gzbin","Build/PWA.wasm.part03.gzbin","Build/PWA.wasm.part04.gzbin","Build/PWA.wasm.part05.gzbin"],"partSizes":[8388608,8388608,8388608,8388608,8388608,4400726],"compressedSizes":[1766489,1688103,1817801,2385546,3044502,1680842],"partHashes":["1ca47dfb6f01bcc51369a33ea73c47d248436765484e719ed4d8d910c0135c3e","71db4a6705ddd17728c8edac8fcc57c53ba7696df71b46a333fda16a6feea2c7","a9e009cbbd324008bf8480e193b2dcd7a3439cdb56792304e01d75c943cea77d","eab5ad5b8584b554e0a4534f0d35a7b34bdd86bc48f549cdde34fa8dd6cfbf68","c939bc7f14c69f527c83ec1ba68e487d0342e3464c36215ef418cf4292f8acce","43b536387662f79a7e2b099dab78462b1d16bf61c3bb90314965fbef61a69f7a"]});</script>
+<!-- Poker transport assets:end -->
 </head>
   <body>
       <div id="unity-container">
@@ -77,6 +80,7 @@
     </div>
     <script src="audio-lifecycle.js"></script>
     <script src="mobile.js"></script>
+    <script src="game-keyboard.js"></script>
     <script>
       const canvas = document.querySelector('#unity-canvas');
       const loadingScreen = document.querySelector('#loading-screen');
@@ -87,17 +91,21 @@
       const updateTitle = document.querySelector('#update-title');
       const updateMessage = document.querySelector('#update-message');
       const updateClose = document.querySelector('#update-close');
-      const releaseVersion = '1.3.17';
+      const releaseVersion = '1.3.18';
       let realProgress = 0, shownProgress = 0, runtimeReady = false, previousFrame = performance.now();
       function renderProgress(now) {
         const dt = Math.min(.1, (now - previousFrame) / 1000); previousFrame = now;
-        const target = runtimeReady ? 100 : Math.min(95, realProgress * 95);
+        const download = window.PokerDownloadProgress;
+        const downloaded = download && download.total > 0 ? Math.min(1,download.loaded/download.total) : 0;
+        const target = runtimeReady ? 100 : Math.min(95,Math.max(realProgress * 95,downloaded * 80));
         shownProgress = Math.min(target, shownProgress + Math.max(4, (target - shownProgress) * 3) * dt);
         const percent = Math.floor(shownProgress);
         if (!loadingScreen.classList.contains('ready')) {
           loadingProgress.style.width = percent + '%';
           loadingTrack.setAttribute('aria-valuenow', String(percent));
-          loadingStatus.textContent = (realProgress < .85 ? 'WCZYTYWANIE PLIKÓW… ' : runtimeReady ? 'PRZYGOTOWYWANIE MENU… ' : 'URUCHAMIANIE GRY… ') + percent + '%';
+          const receiving = realProgress < .85 && downloaded < 1;
+          loadingStatus.textContent = (receiving ? 'WCZYTYWANIE PLIKÓW… ' : runtimeReady ? 'PRZYGOTOWYWANIE MENU… ' : 'URUCHAMIANIE GRY… ') + percent + '%'
+            + (receiving && download ? ' · ' + Math.floor(download.loaded/1000000) + ' / ' + Math.ceil(download.total/1000000) + ' MB' : '');
           if (runtimeReady && shownProgress >= 100) finishLoading();
           else requestAnimationFrame(renderProgress);
         }
@@ -117,11 +125,13 @@
       function showRestartNotice(title, message, version) {
         updateTitle.textContent = title;
         updateMessage.textContent = message;
-        updateClose.textContent = 'URUCHOM PONOWNIE';
+        updateClose.textContent = version ? 'URUCHOM PONOWNIE' : 'SPRÓBUJ PONOWNIE';
         updateClose.onclick = () => {
           updateClose.disabled = true;
-          if (version) localStorage.setItem(window.PokerReleaseStorageKey || 'poker-zgadywany-last-release', version);
-          window.location.replace('reset.html?v=' + Date.now());
+          if (version) {
+            try { localStorage.setItem(window.PokerReleaseStorageKey || 'poker-zgadywany-last-release', version); } catch (_) {}
+            window.location.replace('reset.html?v=' + Date.now());
+          } else window.location.reload(); // Keep successfully downloaded parts.
         };
         updateNotice.classList.add('visible');
       }
@@ -188,7 +198,7 @@
         streamingAssetsUrl: 'StreamingAssets',
         companyName: 'DefaultCompany',
         productName: 'Poker zgadywany',
-        productVersion: '1.3.17',
+        productVersion: '1.3.18',
         devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2)
       };
       const script = document.createElement('script');

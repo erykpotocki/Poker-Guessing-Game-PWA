@@ -140,6 +140,7 @@
         ? (visibleBottom - area.top) / area.height
         : (area.bottom - visibleTop) / area.height);
     }
+    window.PokerGameKeyboard?.refresh();
   }
 
   function tryLock() {
@@ -214,6 +215,10 @@
     keyboardLeftFraction: 0,
     keyboardRightFraction: 1,
     bottomInsetFraction: 0,
+    needsGameKeyboard() {
+      return mobile && /iPhone/.test(navigator.userAgent) && !bootVisible &&
+        desired === 'landscape' && rotation !== 0;
+    },
     setOrientation(landscape) {
       desired = landscape ? 'landscape' : 'portrait';
       refresh(); tryLock();
@@ -240,6 +245,7 @@
   window.visualViewport?.addEventListener('scroll', refresh);
   screen.orientation?.addEventListener('change', orientationChanged);
   document.addEventListener('fullscreenchange', resume);
+  window.addEventListener('pokerkeyboardchange', refresh);
   refresh(); tryLock();
   // Initial HTML loading keeps its portrait image. Random artwork is used only
   // by Unity's multiplayer loading screen after START.
