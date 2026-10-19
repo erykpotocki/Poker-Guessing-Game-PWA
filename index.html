@@ -38,6 +38,7 @@
       #loading-logo { display: block; width: 100%; height: auto; margin-bottom: clamp(34px, calc(var(--view-height) * .08), 74px); animation: loading-pulse 4.5s ease-in-out infinite; }
       #loading-chip { display: block; width: clamp(86px, calc(var(--view-width) * .25), 130px); height: auto; margin-bottom: 28px; animation: loading-spin 5.1s linear infinite; }
       #loading-status { margin: 0 0 16px; color: #fff8de; font-size: clamp(13px, calc(var(--view-width) * .038), 17px); font-weight: bold; letter-spacing: .08em; }
+      #loading-status { white-space: pre-line; line-height: 1.5; max-width: 100%; }
       #loading-track { width: 100%; height: 14px; overflow: hidden; border: 1px solid #e6bd62; border-radius: 999px; background: #06190f; }
       #loading-progress { width: 0; height: 100%; background: linear-gradient(90deg, #9a6410, #f2c15c); transition: width .15s ease-out; }
       @keyframes loading-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
@@ -53,8 +54,8 @@
     </style>
   <!-- Poker transport assets:start -->
 <script src="split-assets.js"></script>
-<script>window.PokerSplitAsset({"url":"Build/PWA.data","hash":"da810e828b01ec465fcc4f3f055dbc39d349b3f199040c8d6d7ef341bdfaa484","length":100445774,"parts":["Build/PWA.data.part00","Build/PWA.data.part01","Build/PWA.data.part02","Build/PWA.data.part03","Build/PWA.data.part04","Build/PWA.data.part05","Build/PWA.data.part06","Build/PWA.data.part07","Build/PWA.data.part08","Build/PWA.data.part09","Build/PWA.data.part10","Build/PWA.data.part11"],"contentType":"application/octet-stream","compressedParts":["Build/PWA.data.part00.gzbin","Build/PWA.data.part01.gzbin","Build/PWA.data.part02.gzbin","Build/PWA.data.part03.gzbin","Build/PWA.data.part04.gzbin","Build/PWA.data.part05.gzbin","Build/PWA.data.part06.gzbin","Build/PWA.data.part07.gzbin","Build/PWA.data.part08.gzbin","Build/PWA.data.part09.gzbin","Build/PWA.data.part10.gzbin","Build/PWA.data.part11.gzbin"],"partSizes":[8388608,8388608,8388608,8388608,8388608,8388608,8388608,8388608,8388608,8388608,8388608,8171086],"compressedSizes":[7567006,7711036,7707489,7711780,7587320,7613520,8389719,8291147,8377438,8306882,7543936,2239645],"partHashes":["2c0a5ae5e8c14ac55bdf0f1c2aaef861958b409f3dbda953986b000d3324bd91","3ac143207d8ff1f0cf1664f11b43010117ff8a4ede9d1ee6051f34bcc9b315ce","5224280e5c58935f2c75197c745542f09cafb096946488f2162f1d523e699994","e611d8f735aaa87d85c07762db43b003aa898d6d5100951e559989f20d491795","3e79f970ee46a72bcfe40dd0adb033376bcc0b38e0d13f20d0839077505f706f","b87fd3ec996f5d93e7edf393a62fa39166339271806487f97ae704b9318fa152","a75d313c9bed3b013289c877e8a63a09e0168630f03500a2abb62d4b61979e9f","e283e77891ba8d9a28b7b9a5c534312c95a3b1412fc41eeacfe458eee411d872","55048681c038939efc87fbb2fb954ca02798e1e2ab38f18a6940da3e7c3f00b7","766fc19625920886d181acbf008e9e0b96e2ecc48a785868b39c66f448e67955","bc6e4853cb12d3828b82980cc925dbda746ed76a496ca2292ef653fb5e7867f4","01d7870fabc743e4e72614e8acb5622bc7ef28fb810e4fc8c405dd9b67346c87"]});</script>
-<script>window.PokerSplitAsset({"url":"Build/PWA.wasm","hash":"00f7aebf85057da2159cd8088a11616080b9a43bcace440a627fd2362dc475f0","length":46343766,"parts":["Build/PWA.wasm.part00","Build/PWA.wasm.part01","Build/PWA.wasm.part02","Build/PWA.wasm.part03","Build/PWA.wasm.part04","Build/PWA.wasm.part05"],"contentType":"application/wasm","compressedParts":["Build/PWA.wasm.part00.gzbin","Build/PWA.wasm.part01.gzbin","Build/PWA.wasm.part02.gzbin","Build/PWA.wasm.part03.gzbin","Build/PWA.wasm.part04.gzbin","Build/PWA.wasm.part05.gzbin"],"partSizes":[8388608,8388608,8388608,8388608,8388608,4400726],"compressedSizes":[1766489,1688103,1817801,2385546,3044502,1680842],"partHashes":["1ca47dfb6f01bcc51369a33ea73c47d248436765484e719ed4d8d910c0135c3e","71db4a6705ddd17728c8edac8fcc57c53ba7696df71b46a333fda16a6feea2c7","a9e009cbbd324008bf8480e193b2dcd7a3439cdb56792304e01d75c943cea77d","eab5ad5b8584b554e0a4534f0d35a7b34bdd86bc48f549cdde34fa8dd6cfbf68","c939bc7f14c69f527c83ec1ba68e487d0342e3464c36215ef418cf4292f8acce","43b536387662f79a7e2b099dab78462b1d16bf61c3bb90314965fbef61a69f7a"]});</script>
+<script>window.PokerSplitAsset({"url":"Build/PWA.data","hash":"d1c59d2c7ebf8b1b1e5bb2d51ce52f011738667558be028d5353e5e6a4b2657b","length":100449503,"parts":["Build/PWA.data.part00","Build/PWA.data.part01","Build/PWA.data.part02","Build/PWA.data.part03","Build/PWA.data.part04","Build/PWA.data.part05","Build/PWA.data.part06","Build/PWA.data.part07","Build/PWA.data.part08","Build/PWA.data.part09","Build/PWA.data.part10","Build/PWA.data.part11"],"contentType":"application/octet-stream","compressedParts":["Build/PWA.data.part00.gzbin","Build/PWA.data.part01.gzbin","Build/PWA.data.part02.gzbin","Build/PWA.data.part03.gzbin","Build/PWA.data.part04.gzbin","Build/PWA.data.part05.gzbin","Build/PWA.data.part06.gzbin","Build/PWA.data.part07.gzbin","Build/PWA.data.part08.gzbin","Build/PWA.data.part09.gzbin","Build/PWA.data.part10.gzbin","Build/PWA.data.part11.gzbin"],"partSizes":[8388608,8388608,8388608,8388608,8388608,8388608,8388608,8388608,8388608,8388608,8388608,8174815],"compressedSizes":[7566923,7710983,7707366,7711897,7587262,7613143,8389729,8291428,8377496,8307224,7544830,2240398],"partHashes":["82eaf0af976cfaf13be8cb827db66fb60ed292b33fc98e7209a78be4e6d207e3","a1e49f80ef6b6e12cfc33b965548055f67de5060e257f552b0f1d6001ca21a23","148d02af67e6e3cf5df9cab463fe463e03aa794312e02dd84faa5bc9ebcae09a","2d5700a09b353b11793ef3637332e2857ad16b2e96bde241fc4a7f83db20700e","49f1ae808fa893282681bf296157d8a43b4c2d56595b75d01589e452b9b421f8","e145f072c472501aa7a16b6a27e4c05002c0ef1bdb02adcd6649d25c98232e1a","698fa829059676077cff31049374f52d7cbd566819b1b538d853b8d223d36721","0149a292ad8ca38475e3fdb168dbe4fc9c5cb75b39318ea09b97a25bc844f26e","3ebb55f2a35b88ef0a67e36342aaa99ba9c80876f03363d47a7e817b29a6ef47","72008c2f549b43a72ce5cfe2cab8017d4df98299de1093738013c9a40341d3be","7267a65393fa02f2bda7ffc24202fc09d86016dd80a1f85335f50ff505d3505b","4f174d656e4ea5ac3d74ece09858db0090415195086c539632d12bd82385e063"]});</script>
+<script>window.PokerSplitAsset({"url":"Build/PWA.wasm","hash":"4dafc733854697d2692192bdf27e42eda56173424600ddec323e60da6797144b","length":46351446,"parts":["Build/PWA.wasm.part00","Build/PWA.wasm.part01","Build/PWA.wasm.part02","Build/PWA.wasm.part03","Build/PWA.wasm.part04","Build/PWA.wasm.part05"],"contentType":"application/wasm","compressedParts":["Build/PWA.wasm.part00.gzbin","Build/PWA.wasm.part01.gzbin","Build/PWA.wasm.part02.gzbin","Build/PWA.wasm.part03.gzbin","Build/PWA.wasm.part04.gzbin","Build/PWA.wasm.part05.gzbin"],"partSizes":[8388608,8388608,8388608,8388608,8388608,4408406],"compressedSizes":[1766823,1687998,1818496,2383702,3043905,1681761],"partHashes":["26e3bdc7af2261ab9ac2b7800c7cbaaf69bb86328b56a441c68b992df65c2497","4d357911624ef03f32812e5b71b2a95cd23231ae7ec683a267d6367548fa1986","2446caac164c64e616af4707efe334eeaaf1616307e35a2487bde6dd24d9abc8","d6a3eec768d5e0bf7f1319f35dda09305633d68d6c22db91b47b7a598e848ef3","21d6fb812ed21578908a715258ff6f62cce5e49531f6d16799524893f0f4443b","b1857460b01fe4c4b9daab10deeaad105939918fd6138db32e9b2cffa727916a"]});</script>
 <!-- Poker transport assets:end -->
 </head>
   <body>
@@ -91,7 +92,7 @@
       const updateTitle = document.querySelector('#update-title');
       const updateMessage = document.querySelector('#update-message');
       const updateClose = document.querySelector('#update-close');
-      const releaseVersion = '1.3.18';
+      const releaseVersion = '1.3.19';
       let realProgress = 0, shownProgress = 0, runtimeReady = false, previousFrame = performance.now();
       function renderProgress(now) {
         const dt = Math.min(.1, (now - previousFrame) / 1000); previousFrame = now;
@@ -105,7 +106,7 @@
           loadingTrack.setAttribute('aria-valuenow', String(percent));
           const receiving = realProgress < .85 && downloaded < 1;
           loadingStatus.textContent = (receiving ? 'WCZYTYWANIE PLIKÓW… ' : runtimeReady ? 'PRZYGOTOWYWANIE MENU… ' : 'URUCHAMIANIE GRY… ') + percent + '%'
-            + (receiving && download ? ' · ' + Math.floor(download.loaded/1000000) + ' / ' + Math.ceil(download.total/1000000) + ' MB' : '');
+            + (receiving && download ? '\n' + Math.floor(download.loaded/1000000) + '\u00a0/\u00a0' + Math.ceil(download.total/1000000) + '\u00a0MB' : '');
           if (runtimeReady && shownProgress >= 100) finishLoading();
           else requestAnimationFrame(renderProgress);
         }
@@ -198,7 +199,7 @@
         streamingAssetsUrl: 'StreamingAssets',
         companyName: 'DefaultCompany',
         productName: 'Poker zgadywany',
-        productVersion: '1.3.18',
+        productVersion: '1.3.19',
         devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2)
       };
       const script = document.createElement('script');

@@ -1,5 +1,5 @@
 const CACHE_PREFIX = 'poker-zgadywany-' + self.registration.scope.replace(/[^a-z0-9]/gi, '_') + '-';
-const CACHE_NAME = CACHE_PREFIX + '639277916292772404';
+const CACHE_NAME = CACHE_PREFIX + '639280197058467247';
 const CACHE_TIMEOUT = 1000;
 const BODY_IDLE_TIMEOUT = 30000;
 const MAX_BUFFERED_BYTES = 8 * 1024 * 1024;
