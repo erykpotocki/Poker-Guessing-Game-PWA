@@ -73,7 +73,7 @@
     window[name] = new Proxy(Native, {
       construct(target, args, newTarget) {
         const context = Reflect.construct(target, args, newTarget);
-        const entry = { gate: null, resume: prototype.resume, wantResume: false, suspending: false };
+        const entry = { gate: null, resume: prototype.resume, wantResume: context.state === 'suspended' || context.state === 'interrupted', suspending: false };
         // The gate itself connects before registration, directly to the real output.
         if (node) safely(() => { const gate = context.createGain(); gate.connect(context.destination); entry.gate = gate; });
         entries.set(context, entry);
@@ -118,7 +118,11 @@
       // Detached streaming elements also need protection from a late play().
       if (result && result.then) result.then(() => {
         if (blocked()) { pauseMedia(this, intent(this).version === version); clearPlayer(); }
-      }, () => {});
+      }, () => {
+        // Retry the exact first playback intent after an autoplay rejection.
+        if (intent(this).version === version && !this.ended)
+          mediaToResume.set(this, { version, src: this.src, pending: false });
+      });
       return result;
     };
     resumeMedia = () => {
@@ -173,7 +177,7 @@
     else playingMedia.add(event.target);
   }, true);
   // A rejected foreground resume can require the next user gesture on iOS.
-  for (const event of ['pointerdown', 'touchstart', 'keydown']) document.addEventListener(event, update, { capture: true, passive: true });
+  for (const event of ['pointerdown', 'pointerup', 'touchstart', 'touchend', 'keydown']) document.addEventListener(event, update, { capture: true, passive: true });
   ambient();
   clearPlayer();
   update();

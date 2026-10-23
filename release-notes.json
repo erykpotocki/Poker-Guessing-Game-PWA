@@ -1,14 +1,14 @@
 {
-  "version": "1.3.19",
+  "version": "1.3.20",
   "title": "Dostępna aktualizacja",
   "changes": [
-    "Poprawiono edycję nicku: skasowany tekst nie wraca, zaznaczenie jest widoczne, a jasny kursor pokazuje miejsce wpisywania.",
-    "Ujednolicono napisy i rozmiary przycisków menu oraz formularzy. Podgląd avatara przy tworzeniu i dołączaniu do pokoju zmniejszono o 30%.",
-    "Górny pasek zachowuje prawidłową skalę po przechodzeniu między menu.",
-    "Licznik pobierania, np. 61 / 102 MB, mieści się w osobnej, nierozdzielanej linii.",
-    "Usunięto ramkę z przygody zasłaniającą avatar, również z wcześniejszych zapisów.",
-    "Kalendarz zwiększa premię o 10% wartości bazowej za każdy kolejny tydzień, także dla spinów: 10, 11, 12 i dalej.",
-    "Uproszczono ustawienia dźwięku: suwaki muzyki i efektów oraz wspólne wyciszanie wszystkich dźwięków.",
-    "Rozbudowano menu testowe o reset postępu, kosmetyków sklepu i walut, większe kwoty, dodatkowe spiny oraz odbieranie kolejnych dni kalendarza."
+    "Serię spinów można zatrzymać przyciskiem Zatrzymaj. Bieżący spin kończy się i przyznaje nagrodę, a pozostałe spiny zostają na później.",
+    "Aktywna zakładka dolnego paska ma delikatnie większą ikonę i złote podświetlenie.",
+    "Ustawienia są dostępne pod dyskretną zębatką podczas gry Hot Seat i multiplayer. Dodano potwierdzane wyjście do menu głównego.",
+    "Naprawiono niespójny stan wyciszenia muzyki oraz ponawianie odtwarzania po pierwszym dotknięciu ekranu i po powrocie do PWA.",
+    "Ikony głośników wyciszają osobno muzykę i efekty, a kolejne kliknięcie przywraca poprzednią głośność.",
+    "Powiększono i wyśrodkowano ceny oraz ikony walut w sklepie.",
+    "Ustabilizowano tła i obramowania przycisków wyboru układu. Przycisk powrotu ma krótszy napis POWRÓT.",
+    "Podsumowanie Hot Seat ma większe karty, czytelniejsze informacje, przewijane listy oraz spójne przyciski PAUZA i KONTYNUUJ."
   ]
 }
